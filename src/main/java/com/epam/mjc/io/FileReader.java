@@ -3,26 +3,27 @@ package com.epam.mjc.io;
 import java.io.*;
 import java.io.FileInputStream;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+
 
 import static java.lang.Integer.parseInt;
 import static java.lang.Long.parseLong;
 
 
 public class FileReader {
-
-    static String absolutPath = "C:\\Users\\Nata Braun\\IdeaProjects\\stage1-module6-io-task1\\src\\main\\resources\\Profile.txt";
+    static String directory = "C:\\Users\\Nata Braun\\IdeaProjects\\stage1-module6-io-task1\\src\\main\\resources";
+    static String fileName = "Profile.txt";
+    static String absolutPath = directory + File.separator + fileName;
 
 
     public Profile getDataFromFile(File file) {
-        String data = "";
-        String [] dataSet = new String[0];
-        try (FileInputStream fileInputStream = new FileInputStream(absolutPath)) {
+
+        StringBuilder data = new StringBuilder();
+        String [] dataSet;
+        try (FileInputStream fileInputStream = new FileInputStream(file.getAbsolutePath())) {
             int ch;
             while ((ch = fileInputStream.read()) != -1) {
                 //System.out.println((char)ch);
-                data = data + (char) ch;
+                data.append((char) ch);
 
             }
             fileInputStream.close();
@@ -35,10 +36,10 @@ public class FileReader {
 
         }
 
-        String[] array = getArrayFromString(data);
+        String[] array = getArrayFromString(data.toString());
 
         //System.out.println(Arrays.toString(getArrayFromString(data)));
-        dataSet = getArrayFromString(data);
+        dataSet = getArrayFromString(data.toString());
         dataSet = getCorrectValue(dataSet);
         System.out.println (Arrays.toString (getCorrectValue(dataSet)));
 
