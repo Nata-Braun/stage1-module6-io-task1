@@ -1,11 +1,76 @@
 package com.epam.mjc.io;
 
-import java.io.File;
+import java.io.*;
+import java.io.FileInputStream;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+
+import static java.lang.Integer.parseInt;
+import static java.lang.Long.parseLong;
 
 
 public class FileReader {
 
+    static String absolutPath = "C:\\Users\\Nata Braun\\IdeaProjects\\stage1-module6-io-task1\\src\\main\\resources\\Profile.txt";
+
+
     public Profile getDataFromFile(File file) {
-        return new Profile();
+        String data = "";
+        String [] dataSet = new String[0];
+        try (FileInputStream fileInputStream = new FileInputStream(absolutPath)) {
+            int ch;
+            while ((ch = fileInputStream.read()) != -1) {
+                //System.out.println((char)ch);
+                data = data + (char) ch;
+
+            }
+            fileInputStream.close();
+
+            System.out.println(data);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+
+        }
+
+        String[] array = getArrayFromString(data);
+
+        //System.out.println(Arrays.toString(getArrayFromString(data)));
+        dataSet = getArrayFromString(data);
+        dataSet = getCorrectValue(dataSet);
+        System.out.println (Arrays.toString (getCorrectValue(dataSet)));
+
+        Profile profile = new Profile();
+        profile.setName(dataSet[0].trim());
+        profile.setAge(parseInt(dataSet[1].trim()));
+        profile.setEmail(dataSet[2].trim());
+        profile.setPhone(parseLong(dataSet[3].trim()));
+
+
+        return profile;
     }
+
+    private String[] getArrayFromString(String data) {
+        String[] dataSet = data.split("\\r?\\n");
+        return dataSet;
+    }
+
+    private String[] getCorrectValue(String[] dataSet) {
+        String[] setValueForProfile = new String[dataSet.length];
+        for (int i = 0; i < dataSet.length; i++) {
+            setValueForProfile[i] = dataSet[i].replaceAll("^[^\s]+", "");
+
+        }
+        return setValueForProfile;
+    }
+
+
+    public static void main (String [] arqs) {
+        FileReader fileReader = new FileReader();
+        System.out.println(fileReader.getDataFromFile(new File(absolutPath)));
+
+    }
+
 }
