@@ -2,7 +2,7 @@ package com.epam.mjc.io;
 
 import java.io.*;
 import java.io.FileInputStream;
-import java.util.Arrays;
+
 
 
 import static java.lang.Integer.parseInt;
@@ -10,9 +10,6 @@ import static java.lang.Long.parseLong;
 
 
 public class FileReader {
-    static String directory = "C:\\Users\\Nata Braun\\IdeaProjects\\stage1-module6-io-task1\\src\\main\\resources";
-    static String fileName = "Profile.txt";
-    static String absolutPath = directory + File.separator + fileName;
 
 
     public Profile getDataFromFile(File file) {
@@ -25,9 +22,6 @@ public class FileReader {
                 data.append((char) ch);
 
             }
-            fileInputStream.close();
-
-            System.out.println(data);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -36,7 +30,7 @@ public class FileReader {
 
         dataSet = getArrayFromString(data.toString());
         dataSet = getCorrectValue(dataSet);
-        System.out.println (Arrays.toString (getCorrectValue(dataSet)));
+
 
         Profile profile = new Profile();
         profile.setName(dataSet[0].trim());
