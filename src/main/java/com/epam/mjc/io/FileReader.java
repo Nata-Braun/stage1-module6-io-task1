@@ -22,21 +22,18 @@ public class FileReader {
         try (FileInputStream fileInputStream = new FileInputStream(file.getAbsolutePath())) {
             int ch;
             while ((ch = fileInputStream.read()) != -1) {
-                //System.out.println((char)ch);
                 data.append((char) ch);
 
             }
             fileInputStream.close();
 
             System.out.println(data);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+
         } catch (IOException e) {
             e.printStackTrace();
 
         }
 
-        //System.out.println(Arrays.toString(getArrayFromString(data)));
         dataSet = getArrayFromString(data.toString());
         dataSet = getCorrectValue(dataSet);
         System.out.println (Arrays.toString (getCorrectValue(dataSet)));
@@ -65,10 +62,5 @@ public class FileReader {
     }
 
 
-    public static void main (String [] arqs) {
-        FileReader fileReader = new FileReader();
-        System.out.println(fileReader.getDataFromFile(new File(absolutPath)));
-
-    }
 
 }
