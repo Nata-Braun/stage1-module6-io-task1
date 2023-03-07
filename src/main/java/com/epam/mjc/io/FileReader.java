@@ -36,8 +36,6 @@ public class FileReader {
 
         }
 
-        String[] array = getArrayFromString(data.toString());
-
         //System.out.println(Arrays.toString(getArrayFromString(data)));
         dataSet = getArrayFromString(data.toString());
         dataSet = getCorrectValue(dataSet);
@@ -54,14 +52,13 @@ public class FileReader {
     }
 
     private String[] getArrayFromString(String data) {
-        String[] dataSet = data.split("\\r?\\n");
-        return dataSet;
+        return data.split("\\r?\\n");
     }
 
     private String[] getCorrectValue(String[] dataSet) {
         String[] setValueForProfile = new String[dataSet.length];
         for (int i = 0; i < dataSet.length; i++) {
-            setValueForProfile[i] = dataSet[i].replaceAll("^[^\s]+", "");
+            setValueForProfile[i] = dataSet[i].replaceAll("^[^\\s]+", "");
 
         }
         return setValueForProfile;
